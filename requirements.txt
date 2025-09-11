@@ -1,0 +1,8 @@
+websocket-client>=1.8
+pydantic>=2.7
+python-dotenv>=1.0
+
+# Calidad de código
+ruff>=0.6
+black>=24.3
+isort>=5.13
