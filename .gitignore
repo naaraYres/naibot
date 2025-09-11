@@ -1,0 +1,75 @@
+# Archivos de credenciales y configuración sensible
+credentiales.py
+credentials.py
+config.py
+.env
+*.env
+secrets.json
+api_keys.txt
+settings.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+env/
+.env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs y archivos de datos
+*.log
+logs/
+data/
+backtest_results/
+trading_data/
+historical_data/
+*.csv
+*.json
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+
+# Archivos de testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Base de datos local
+*.db
+*.sqlite
+*.sqlite3
