@@ -16,8 +16,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 from config.settings import TRADING_CONFIG, SYMBOL_STRATEGIES
 from config.credentials import get_api_credentials  # Cambiado de get_credentials a get_api_credentials
 from src.utils.logger import setup_logger
-from src.trading_bot import TradingBot
-
+from src.Naibot2 import TradingBot
 
 def validate_environment() -> bool:
     """Valida que el entorno esté correctamente configurado."""
@@ -84,8 +83,7 @@ def main():
     print("🤖 Bot de Trading Deriv - Versión Modular 2.0")
     print("=" * 60)
     
-    try:
-         # Configurar logging
+    try: # Configurar logging
         setup_logging("INFO")
         logger = logging.getLogger("main")
     
@@ -112,7 +110,7 @@ def main():
         
         # Crear y ejecutar bot
         logger.info("Creando instancia del bot...")
-        bot = TradingBot(config)
+        bot = Naibot2(config)
         
         logger.info("Iniciando ejecución del bot...")
         logger.info("Presiona Ctrl+C para detener el bot")
