@@ -3,10 +3,10 @@ import logging
 from decimal import Decimal
 from typing import Dict, Optional
 
-from .exchanges.deriv_client import DerivWebSocketClient
-from .strategies.confluence_strategy import ConfluenceStrategy
-from .risk_management.position_sizing import RiskManager
-from .utils.bot_states import BotState
+from exchanges.Deriv_client import DerivWebSocketClient
+from strategies.confluence_Strategy import ConfluenceStrategy
+from risk_management.position_sizing import RiskManager
+from utils.bot_states import BotState
 
 class TradingBot:
     """Bot de trading optimizado con mejor gestión de estados y errores."""
