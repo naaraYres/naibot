@@ -13,8 +13,8 @@ from typing import Dict, Optional
 # Agregar el directorio src al path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from config.settings import TRADING_CONFIG
-from config.credentials import get_credentials
+from config.settings import TRADING_CONFIG, SYMBOL_STRATEGIES
+from config.credentials import get_api_credentials  # Cambiado de get_credentials a get_api_credentials
 from src.utils.logger import setup_logger
 from src.trading_bot import TradingBot
 
@@ -51,11 +51,11 @@ def load_trading_config() -> Optional[Dict]:
     
     try:
         # Obtener credenciales
-        credentials = get_credentials()
+        credentials =get_api_credentials()  # Cambiado de get_credentials a get_api_credentials
         if not credentials:
             logger.error("No se pudieron obtener las credenciales")
             return None
-        
+
         # Combinar configuración base con credenciales
         config = {**TRADING_CONFIG, **credentials}
         
@@ -85,12 +85,10 @@ def main():
     print("=" * 60)
     
     try:
-        # Configurar logging
-        logger = setup_logger(
-            name="main",
-            log_file=f"logs/trading_bot_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-        )
-        
+         # Configurar logging
+        setup_logging("INFO")
+        logger = logging.getLogger("main")
+    
         logger.info("Iniciando bot de trading...")
         
         # Validar entorno
