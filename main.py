@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-"""
-Bot de Trading Deriv - Punto de Entrada Principal
-Versión modular con mejor organización y mantenibilidad.
-"""
-
+""" Bot de Trading Deriv - Punto de Entrada Principal Versión modular con mejor organización y mantenibilidad. """
 import sys
 import os
 import logging
@@ -13,10 +8,12 @@ from typing import Dict, Optional
 # Agregar el directorio src al path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
+from config.settings import build_bot_config
 from config.settings import TRADING_CONFIG, SYMBOL_STRATEGIES
-from config.credentials import get_api_credentials  # Cambiado de get_credentials a get_api_credentials
+from config.credentials import get_api_credentials
 from src.utils.logger import setup_logger
 from src.Naibot2 import TradingBot
+
 
 def validate_environment() -> bool:
     """Valida que el entorno esté correctamente configurado."""
@@ -50,10 +47,26 @@ def load_trading_config() -> Optional[Dict]:
     
     try:
         # Obtener credenciales
-        credentials =get_api_credentials()  # Cambiado de get_credentials a get_api_credentials
+        credentials = get_api_credentials()
         if not credentials:
             logger.error("No se pudieron obtener las credenciales")
             return None
+        
+         # Aquí usamos build_bot_config para crear toda la configuración completa
+        config = build_bot_config(
+            app_id=credentials['app_id'],
+            token=credentials['token'],
+            symbol=credentials['symbol']  # asegúrate de que esté definido
+        )
+        logger.info("Configuración cargada correctamente")
+        logger.info(f"Símbolo: {config['symbol']}")
+        logger.info(f"Stake: ${config['stake']}")
+        
+        return config
+        
+    except Exception as e:
+        logger.error(f"Error cargando configuración: {e}")
+        return None
 
         # Combinar configuración base con credenciales
         config = {**TRADING_CONFIG, **credentials}
@@ -83,10 +96,9 @@ def main():
     print("🤖 Bot de Trading Deriv - Versión Modular 2.0")
     print("=" * 60)
     
-    try: # Configurar logging
-        setup_logging("INFO")
-        logger = logging.getLogger("main")
-    
+    try:
+        # Configurar logging
+        logger = setup_logger("main", "INFO")
         logger.info("Iniciando bot de trading...")
         
         # Validar entorno
@@ -110,7 +122,7 @@ def main():
         
         # Crear y ejecutar bot
         logger.info("Creando instancia del bot...")
-        bot = Naibot2(config)
+        bot = TradingBot(config)
         
         logger.info("Iniciando ejecución del bot...")
         logger.info("Presiona Ctrl+C para detener el bot")
